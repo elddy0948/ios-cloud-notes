@@ -29,7 +29,10 @@ class MemoTableViewController: UIViewController {
     }
     
     @objc private func didTapAddButton() {
-        self.navigationController?.pushViewController(AddMemoViewController(), animated: true)
+        if let memoSplitViewController = splitViewController as? MemoSplitViewController {
+            let addMemoViewcontroller = memoSplitViewController.addMemoViewController
+            memoSplitViewController.showDetailViewController(addMemoViewcontroller, sender: nil)
+        }
     }
 }
 

@@ -18,6 +18,7 @@ class AddMemoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didTapDoneButton))
+        print(navigationController?.navigationBar.isHidden)
         view.addSubview(titleTextField)
         view.addSubview(bodyTextView)
         configureConstraints()
