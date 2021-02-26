@@ -9,8 +9,8 @@ import UIKit
 
 class MemoSplitViewController: UISplitViewController {
     let memoTableViewController = MemoTableViewController()
-    let memoViewController = MemoViewController()
-    let addMemoViewController = AddMemoViewController()
+    let memoViewController = UINavigationController(rootViewController: MemoViewController())
+    let addMemoViewController = UINavigationController(rootViewController: AddMemoViewController())
     
     override func viewDidLoad() {
         super.viewDidLoad()

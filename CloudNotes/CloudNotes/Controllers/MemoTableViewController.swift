@@ -77,7 +77,7 @@ extension MemoTableViewController: UITableViewDelegate, UITableViewDataSource {
         let memo = memoModel[indexPath.row].body
         if let memoSplitViewController = splitViewController as? MemoSplitViewController {
             let memoViewController = memoSplitViewController.memoViewController
-            memoViewController.setMemo(memo)
+//            memoViewController.setMemo(memo)
             memoSplitViewController.showDetailViewController(memoViewController, sender: nil)
         }
     }
