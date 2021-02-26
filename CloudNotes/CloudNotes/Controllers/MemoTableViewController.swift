@@ -19,7 +19,6 @@ class MemoTableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        memoModel = MemoModel.getData()
         configureTableView()
         setupNavigationItem()
     }
