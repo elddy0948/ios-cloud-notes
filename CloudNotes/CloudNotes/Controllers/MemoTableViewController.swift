@@ -24,8 +24,12 @@ class MemoTableViewController: UIViewController {
         setupNavigationItem()
     }
     private func setupNavigationItem() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))
         navigationItem.title = "메모"
+    }
+    
+    @objc private func didTapAddButton() {
+        self.navigationController?.pushViewController(AddMemoViewController(), animated: true)
     }
 }
 
