@@ -11,8 +11,7 @@ struct MemoModel {
     static func getData() -> [Memo]? {
         let fileName = "sample"
         let file = NSDataAsset(name: fileName)
-        let Memos = try? JSONDecoder().decode([Memo].self, from: file!.data)
-        dump(Memos)
-        return Memos
+        let memos = try? JSONDecoder().decode([Memo].self, from: file!.data)
+        return memos
     }
 }

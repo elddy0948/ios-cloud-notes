@@ -14,12 +14,18 @@ class MemoTableViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
-    var memoModel: [Memo]?
+
+    private var memoModel: [Memo]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         memoModel = MemoModel.getData()
         configureTableView()
+        setupNavigationItem()
+    }
+    private func setupNavigationItem() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
+        navigationItem.title = "메모"
     }
 }
 
@@ -32,6 +38,7 @@ extension MemoTableViewController {
         view.addSubview(memoListTableView)
         configureConstraints()
     }
+    
     private func configureConstraints() {
         NSLayoutConstraint.activate([
             memoListTableView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -54,5 +61,17 @@ extension MemoTableViewController: UITableViewDelegate, UITableViewDataSource {
         }
         cell.configure(with: memoModel?[indexPath.row])
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let memoModel = self.memoModel else {
+            return
+        }
+        let memo = memoModel[indexPath.row].body
+        if let memoSplitViewController = splitViewController as? MemoSplitViewController {
+            let memoViewController = memoSplitViewController.memoViewController
+            memoViewController.setMemo(memo)
+            memoSplitViewController.showDetailViewController(memoViewController, sender: nil)
+        }
     }
 }

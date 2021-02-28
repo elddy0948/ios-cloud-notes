@@ -1,7 +1,14 @@
 import UIKit
 
-class MemoTableViewCell: UITableViewCell {
-    static let reuseIdentifier = String(describing: MemoTableViewCell.self)
+protocol Reusable: class {}
+ 
+extension Reusable where Self: UITableViewCell {
+    static var reuseIdentifier: String {
+        return String(describing: self)
+    }
+}
+
+class MemoTableViewCell: UITableViewCell, Reusable {
     //MARK: - Views
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -55,7 +62,9 @@ class MemoTableViewCell: UITableViewCell {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        setupViews()
+        selectionStyle = .none
     }
     
     override func layoutSubviews() {
@@ -63,7 +72,7 @@ class MemoTableViewCell: UITableViewCell {
         setupConstraints()
     }
     
-    public func configure(with model: Memo?) {
+    func configure(with model: Memo?) {
         titleLabel.text = model?.title
         if let lastModified = model?.lastModified {
             let timeInterval = TimeInterval(lastModified)
@@ -79,9 +88,9 @@ class MemoTableViewCell: UITableViewCell {
     }
     
     private func setupViews() {
-        memoListStackView.addArrangedSubview(titleLabel)
         dateAndDescribingStackView.addArrangedSubview(dateLabel)
         dateAndDescribingStackView.addArrangedSubview(describingLabel)
+        memoListStackView.addArrangedSubview(titleLabel)
         memoListStackView.addArrangedSubview(dateAndDescribingStackView)
         contentView.addSubview(memoListStackView)
         contentView.addSubview(nextButton)
