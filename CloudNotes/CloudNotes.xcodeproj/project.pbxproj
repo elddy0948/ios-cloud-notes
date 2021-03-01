@@ -15,6 +15,7 @@
 		B4906A4325E8FED900E6E764 /* AddMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4906A4225E8FED900E6E764 /* AddMemoViewController.swift */; };
 		B4906A5925E91FE600E6E764 /* Memo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4906A5725E91FE600E6E764 /* Memo+CoreDataClass.swift */; };
 		B4906A5A25E91FE600E6E764 /* Memo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4906A5825E91FE600E6E764 /* Memo+CoreDataProperties.swift */; };
+		B4D9106125EC8AD400619C6A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D9106025EC8AD400619C6A /* CoreDataStack.swift */; };
 		C7481C6E25BBCF3900B9CA55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7481C6D25BBCF3900B9CA55 /* AppDelegate.swift */; };
 		C7481C7025BBCF3900B9CA55 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7481C6F25BBCF3900B9CA55 /* SceneDelegate.swift */; };
 		C7481C7825BBCF3900B9CA55 /* CloudNotes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C7481C7625BBCF3900B9CA55 /* CloudNotes.xcdatamodeld */; };
@@ -50,6 +51,7 @@
 		B4906A4225E8FED900E6E764 /* AddMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMemoViewController.swift; sourceTree = "<group>"; };
 		B4906A5725E91FE600E6E764 /* Memo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Memo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		B4906A5825E91FE600E6E764 /* Memo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Memo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		B4D9106025EC8AD400619C6A /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		C7481C6A25BBCF3900B9CA55 /* CloudNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7481C6D25BBCF3900B9CA55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7481C6F25BBCF3900B9CA55 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 			children = (
 				B4906A5725E91FE600E6E764 /* Memo+CoreDataClass.swift */,
 				B4906A5825E91FE600E6E764 /* Memo+CoreDataProperties.swift */,
+				B4D9106025EC8AD400619C6A /* CoreDataStack.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 				3621012825DAFEDB0063FDFA /* MemoSplitViewController.swift in Sources */,
 				C7481C6E25BBCF3900B9CA55 /* AppDelegate.swift in Sources */,
 				C7481C7025BBCF3900B9CA55 /* SceneDelegate.swift in Sources */,
+				B4D9106125EC8AD400619C6A /* CoreDataStack.swift in Sources */,
 				B4906A5A25E91FE600E6E764 /* Memo+CoreDataProperties.swift in Sources */,
 				C7481C7825BBCF3900B9CA55 /* CloudNotes.xcdatamodeld in Sources */,
 				3621012D25DAFF570063FDFA /* MemoTableViewController.swift in Sources */,
