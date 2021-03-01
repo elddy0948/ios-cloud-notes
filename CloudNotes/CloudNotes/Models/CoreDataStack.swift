@@ -12,6 +12,10 @@ class CoreDataStack {
         return storeContainer.viewContext
     }()
     
+    var savingContext: NSManagedObjectContext {
+        return storeContainer.newBackgroundContext()
+    }
+    
     private lazy var storeContainer: NSPersistentContainer = {
         let container = NSPersistentCloudKitContainer(name: self.modelName)
         container.loadPersistentStores { _, error in

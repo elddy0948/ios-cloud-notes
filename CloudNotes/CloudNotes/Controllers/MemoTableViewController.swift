@@ -43,8 +43,10 @@ class MemoTableViewController: UIViewController {
     
     @objc private func didTapAddButton() {
         if let memoSplitViewController = splitViewController as? MemoSplitViewController {
-            let addMemoViewcontroller = memoSplitViewController.addMemoViewController
-            memoSplitViewController.showDetailViewController(addMemoViewcontroller, sender: nil)
+            let addMemoViewcontrollerNavigation = memoSplitViewController.addMemoViewController
+            let addMemoViewController = addMemoViewcontrollerNavigation.topViewController as? AddMemoViewController
+            addMemoViewController?.managedObjectContext = coreDataStack.savingContext
+            memoSplitViewController.showDetailViewController(addMemoViewcontrollerNavigation, sender: nil)
         }
     }
 }

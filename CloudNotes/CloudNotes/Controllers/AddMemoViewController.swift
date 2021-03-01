@@ -1,3 +1,4 @@
+import CoreData
 import UIKit
 
 class AddMemoViewController: UIViewController {
@@ -13,6 +14,14 @@ class AddMemoViewController: UIViewController {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
+    }()
+    var managedObjectContext: NSManagedObjectContext?
+    
+    lazy var memo: Memo? = {
+        guard let context = managedObjectContext else {
+            return nil
+        }
+        return Memo(context: context)
     }()
 
     override func viewDidLoad() {
@@ -39,6 +48,22 @@ class AddMemoViewController: UIViewController {
     //MARK: - Actions
     @objc private func didTapDoneButton() {
         //Save in CoreData
-        self.navigationController?.popViewController(animated: true)
+        print("Did tap done")
+        guard let memo = memo,
+              let managedObjectContext = managedObjectContext else {
+            return
+        }
+        managedObjectContext.performAndWait {
+            memo.title = titleTextField.text ?? ""
+            memo.body = bodyTextView.text
+            memo.lastModified = 146000
+        }
+        
+        do {
+            try managedObjectContext.save()
+            print("Saved!")
+        } catch let error as NSError {
+            print("Save Error: \(error), \(error.userInfo)")
+        }
     }
 }
