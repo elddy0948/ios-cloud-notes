@@ -4,7 +4,7 @@
 //
 //  Created by 임성민 on 2021/02/16.
 //
-
+import CoreData
 import UIKit
 
 class MemoTableViewController: UIViewController {
@@ -16,11 +16,25 @@ class MemoTableViewController: UIViewController {
     }()
 
     private var memoModel: [Memo]?
+    lazy var coreDataStack = CoreDataStack(modelName: "CloudNotes")
+    lazy var fetchedResultsController: NSFetchedResultsController<Memo> = {
+        let fetchRequest: NSFetchRequest<Memo> = Memo.fetchRequest()
+        let sort = NSSortDescriptor(key: #keyPath(Memo.lastModified), ascending: true)
+        fetchRequest.sortDescriptors = [sort]
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: coreDataStack.managedContext, sectionNameKeyPath: nil, cacheName: nil)
+        return fetchedResultsController
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
         setupNavigationItem()
+        
+        do {
+            try fetchedResultsController.performFetch()
+        } catch let error as NSError {
+            print("Fetch Error: \(error), \(error.userInfo)")
+        }
     }
     private func setupNavigationItem() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))
@@ -58,14 +72,18 @@ extension MemoTableViewController {
 //MARK: - UITableViewDelegate, UITableViewDataSource
 extension MemoTableViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return memoModel?.count ?? 0
+        guard let sectionInfo = fetchedResultsController.sections?[section] else {
+            return 0
+        }
+        return sectionInfo.numberOfObjects
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MemoTableViewCell.reuseIdentifier, for: indexPath) as? MemoTableViewCell else {
             return UITableViewCell()
         }
-        cell.configure(with: memoModel?[indexPath.row])
+        let memo = fetchedResultsController.object(at: indexPath)
+        cell.configure(with: memo)
         return cell
     }
     
