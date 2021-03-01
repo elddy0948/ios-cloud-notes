@@ -90,13 +90,11 @@ extension MemoTableViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let memoModel = self.memoModel else {
-            return
-        }
-        let memo = memoModel[indexPath.row].body
+        let memo = fetchedResultsController.object(at: indexPath)
         if let memoSplitViewController = splitViewController as? MemoSplitViewController {
             let memoViewController = memoSplitViewController.memoViewController
-//            memoViewController.setMemo(memo)
+            let memoVC = memoViewController.topViewController as? MemoViewController
+            memoVC?.setMemo(memo)
             memoSplitViewController.showDetailViewController(memoViewController, sender: nil)
         }
     }

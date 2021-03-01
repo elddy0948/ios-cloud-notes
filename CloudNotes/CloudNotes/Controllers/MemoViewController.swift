@@ -67,8 +67,8 @@ extension MemoViewController {
         swipeDownGesture.direction = UISwipeGestureRecognizer.Direction.down
         memoTextView.addGestureRecognizer(swipeDownGesture)
     }
-    func setMemo(_ memo: String) {
-        memoTextView.text = memo
+    func setMemo(_ memo: Memo) {
+        memoTextView.text = memo.body
     }
 }
 
