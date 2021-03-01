@@ -25,16 +25,21 @@ class MemoTableViewController: UIViewController {
         return fetchedResultsController
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("Hello")
+        do {
+            try fetchedResultsController.performFetch()
+            memoListTableView.reloadData()
+        } catch let error as NSError {
+            print("Fetch Error: \(error), \(error.userInfo)")
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
         setupNavigationItem()
-        
-        do {
-            try fetchedResultsController.performFetch()
-        } catch let error as NSError {
-            print("Fetch Error: \(error), \(error.userInfo)")
-        }
     }
     private func setupNavigationItem() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))
@@ -45,7 +50,7 @@ class MemoTableViewController: UIViewController {
         if let memoSplitViewController = splitViewController as? MemoSplitViewController {
             let addMemoViewcontrollerNavigation = memoSplitViewController.addMemoViewController
             let addMemoViewController = addMemoViewcontrollerNavigation.topViewController as? AddMemoViewController
-            addMemoViewController?.managedObjectContext = coreDataStack.savingContext
+            addMemoViewController?.managedObjectContext = coreDataStack.managedContext
             memoSplitViewController.showDetailViewController(addMemoViewcontrollerNavigation, sender: nil)
         }
     }
@@ -95,6 +100,8 @@ extension MemoTableViewController: UITableViewDelegate, UITableViewDataSource {
             let memoViewController = memoSplitViewController.memoViewController
             let memoVC = memoViewController.topViewController as? MemoViewController
             memoVC?.setMemo(memo)
+            memoVC?.memo = memo
+            memoVC?.managedObjectContext = coreDataStack.managedContext
             memoSplitViewController.showDetailViewController(memoViewController, sender: nil)
         }
     }
