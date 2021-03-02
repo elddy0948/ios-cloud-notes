@@ -15,11 +15,11 @@ class MemoTableViewController: UIViewController {
         return tableView
     }()
 
-    private var memoModel: [Memo]?
     lazy var coreDataStack = CoreDataStack(modelName: "CloudNotes")
+    
     lazy var fetchedResultsController: NSFetchedResultsController<Memo> = {
         let fetchRequest: NSFetchRequest<Memo> = Memo.fetchRequest()
-        let sort = NSSortDescriptor(key: #keyPath(Memo.lastModified), ascending: true)
+        let sort = NSSortDescriptor(key: #keyPath(Memo.lastModified), ascending: false)
         fetchRequest.sortDescriptors = [sort]
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: coreDataStack.managedContext, sectionNameKeyPath: nil, cacheName: nil)
         return fetchedResultsController
@@ -27,7 +27,6 @@ class MemoTableViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("Hello")
         do {
             try fetchedResultsController.performFetch()
             memoListTableView.reloadData()

@@ -8,14 +8,13 @@
 import UIKit
 
 class MemoSplitViewController: UISplitViewController {
-    let memoTableViewController = MemoTableViewController()
+    let memoTableViewController = UINavigationController(rootViewController: MemoTableViewController())
     let memoViewController = UINavigationController(rootViewController: MemoViewController())
     let addMemoViewController = UINavigationController(rootViewController: AddMemoViewController())
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let masterViewController = UINavigationController(rootViewController: memoTableViewController)
-        self.viewControllers = [masterViewController]
+        self.viewControllers = [memoTableViewController]
         self.preferredPrimaryColumnWidthFraction = 1/3
         self.preferredDisplayMode = .oneBesideSecondary
     }

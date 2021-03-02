@@ -66,6 +66,8 @@ class MemoViewController: UIViewController {
         } catch let error as NSError {
             print("Delete Error: \(error), \(error.userInfo)")
         }
+        let master = self.splitViewController as? MemoSplitViewController
+        master?.memoTableViewController.popViewController(animated: true)
     }
 }
 
@@ -94,10 +96,10 @@ extension MemoViewController {
         let shareAction = UIAlertAction(title: "Share...", style: .default) { (_) in
             print("Share...")
         }
-        let deleteAction = UIAlertAction(title: "Delete", style: .default) { (_) in
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
             let deleteAlertController = UIAlertController(title: "진짜요?", message: "정말로 삭제하시겠어요?", preferredStyle: .alert)
             let noAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-            let deleteAction = UIAlertAction(title: "삭제", style: .default) { (_) in
+            let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { (_) in
                 self.deleteMemo()
             }
             deleteAlertController.addAction(noAction)

@@ -15,6 +15,7 @@ class AddMemoViewController: UIViewController {
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
+    
     var managedObjectContext: NSManagedObjectContext?
     
     lazy var memo: Memo? = {
@@ -23,7 +24,11 @@ class AddMemoViewController: UIViewController {
         }
         return Memo(context: context)
     }()
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        titleTextField.text = ""
+        bodyTextView.text = ""
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -56,7 +61,8 @@ class AddMemoViewController: UIViewController {
         managedObjectContext.performAndWait {
             memo.title = titleTextField.text ?? ""
             memo.body = bodyTextView.text
-            memo.lastModified = 146000
+            let date = Date()
+            memo.lastModified = Int64(date.timeIntervalSince1970)
         }
         
         do {
@@ -65,5 +71,8 @@ class AddMemoViewController: UIViewController {
         } catch let error as NSError {
             print("Save Error: \(error), \(error.userInfo)")
         }
+        
+        let master = self.splitViewController as? MemoSplitViewController
+        master?.memoTableViewController.popViewController(animated: true)
     }
 }
